@@ -1,0 +1,6 @@
+# Last version to support duckdb 1.2.1, dbt-duckdb 1.9.3 explicitly say "Bump duckdb version to v1.2.2"
+# source: github.com/duckdb/dbt-duckdb/releases
+# It is important because the driver I use for duckdb on metabase supports duckdb 1.2.1
+dbt-duckdb==1.9.2 
+duckdb==1.2.1 # Force it because it still want to be in 1.2.2 otherwise
+# duckcli==0.2.1 # Archived project, I have to look at this for cleaner alternative: https://duckdb.org/docs/stable/clients/cli/overview.html
