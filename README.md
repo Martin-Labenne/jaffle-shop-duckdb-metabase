@@ -4,12 +4,6 @@ The initial structure of this project is based on the very famous Jaffle Shop ex
 
 ## Setup
 
-### Copy the default dbt profiles
-
-```sh
-cp profiles.yml.default profiles.yml
-```
-
 ### Create python venv and install the project dependancies
 
 ```sh
@@ -17,6 +11,18 @@ python3 -m venv venv
 source venv/bin/activate
 pip install --upgrade pip
 pip install -r requirements.txt
+```
+
+### Copy the default dbt profiles
+
+```sh
+cp profiles.yml.default profiles.yml
+```
+
+### Install dbt dependancies
+
+```sh
+dbt deps
 ```
 
 ### Test your installation
@@ -27,27 +33,20 @@ This command performs a series of check and at the end you should be rewarded wi
 dbt debug
 ```
 
-The following command should allow you to interract with the newly created database (`CTRL + D` to Quit the interractive command line).
-If you want to install duckdb for command line: <https://duckdb.org/docs/installation/?version=stable&environment=cli&platform=linux&download_method=direct&architecture=x86_64>
+### Populate the database
+
+```sh
+dbt build
+```
+
+Note: you should get couple of warnings, they are completely normal because it is the initial run
+
+At this point, you can interract with the newly created and popultated database (`CTRL + D` to Quit the interractive command line).
+If you dont have duckdb CLI installed: <https://duckdb.org/docs/installation/?version=stable&environment=cli&platform=linux&download_method=direct&architecture=x86_64>
 
 ```sh
 duckdb dev.duckdb
 ```
-
-### Install dbt dependancies
-
-```sh
-dbt deps
-```
-
-### Populate the database
-
-```sh
-dbt seed
-dbt build
-```
-
-Note: `seed` command should get couple of warnings, they are completely ok because it is the initial run
 
 ### Run Metabase interface with duckdb community driver
 
