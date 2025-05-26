@@ -25,12 +25,20 @@ cp profiles.yml.default profiles.yml
 dbt deps
 ```
 
-### Test your installation
+### Test your dbt installation
 
 This command performs a series of check and at the end you should be rewarded with `All checks passed!`
 
 ```sh
 dbt debug
+```
+
+### Generate source data
+
+For this step, we will use the very handy [jafgen](https://github.com/dbt-labs/jaffle-shop-generator) package. The following command generate 1 year of data and prefix the tables with `raw`.
+
+```sh
+jafgen 1 --pre raw
 ```
 
 ### Populate the database
