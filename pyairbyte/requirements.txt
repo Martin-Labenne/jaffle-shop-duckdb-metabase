@@ -1,0 +1,2 @@
+airbyte==0.25.0
+duckdb==1.2.1

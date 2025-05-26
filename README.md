@@ -35,11 +35,31 @@ dbt debug
 
 ### Populate the database
 
+For this step, Im using a pyairbyte ingestion pipeline CSV -> DuckDB.
+The CSV connector is supported for python3 < 3.12 so I had to run my script in a container.  
+
+- Image Building from this folder
+
 ```sh
-dbt build
+docker build -f pyairbyte.Dockerfile -t pyairbyte .
 ```
 
-Note: you should get couple of warnings, they are completely normal because it is the initial run
+- Run the container
+
+```sh
+docker run --name pyairbyte-0-25-0 -v ./jaffle-data:/source/jaffle-data:ro -v ./dev.duckdb:/destination/dev.duckdb pyairbyte
+```
+
+- Note: the first run is alway kind of slow because the connector have to be loaded
+To re-run the ingestion script with outputs:
+
+```sh
+docker start -a pyairbyte-0-25-0
+```
+
+If you are not confortable using pyairbyte, you can also install airbyte locally on your machine using [abctl](https://github.com/airbytehq/abctl) and use the UI and other features but this will be a much heavier process to run.
+
+### Have a look in your database
 
 At this point, you can interract with the newly created and popultated database (`CTRL + D` to Quit the interractive command line).
 If you dont have duckdb CLI installed: <https://duckdb.org/docs/installation/?version=stable&environment=cli&platform=linux&download_method=direct&architecture=x86_64>
@@ -47,6 +67,20 @@ If you dont have duckdb CLI installed: <https://duckdb.org/docs/installation/?ve
 ```sh
 duckdb dev.duckdb
 ```
+
+Then execute the following query:
+
+```sql
+select * from raw.raw_customers limit 10;
+```
+
+### Build the models
+
+```sh
+dbt build
+```
+
+Note: you should get couple of warnings, they are completely normal because it is the initial run
 
 ### Run Metabase interface with duckdb community driver
 

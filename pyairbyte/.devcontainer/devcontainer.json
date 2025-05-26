@@ -1,0 +1,24 @@
+{
+  "name": "dev-pyairbyte-0-25-0",
+  "build": {
+    "dockerfile": "dev-pyairbyte.Dockerfile"
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "python.defaultInterpreterPath": "/usr/local/bin/python"
+      },
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance"
+      ]
+    }
+  },
+  "postCreateCommand": "pip install -r /tmp/requirements.txt",
+  "remoteUser": "vscode",
+  "workspaceFolder": "/workspace",
+  "mounts": [
+    "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached"
+  ]
+}
