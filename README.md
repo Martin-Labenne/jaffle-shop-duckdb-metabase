@@ -61,8 +61,14 @@ If you are not confortable using pyairbyte, you can also install airbyte locally
 
 ### Have a look in your database
 
-At this point, you can interract with the newly created and popultated database (`CTRL + D` to Quit the interractive command line).
-If you dont have duckdb CLI installed: <https://duckdb.org/docs/installation/?version=stable&environment=cli&platform=linux&download_method=direct&architecture=x86_64>
+At this point, you can interract with the newly created and popultated database using the duckdb CLI. To get the proper version of the CLI, use
+
+```sh
+chmod +x duckdb_venv_install.sh
+./duckdb_venv_install.sh
+```
+
+Reactivate your venv and use:
 
 ```sh
 duckdb dev.duckdb
